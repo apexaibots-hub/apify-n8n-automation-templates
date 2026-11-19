@@ -1,0 +1,42 @@
+{
+  "name": "Shopify Store Catalog & Price Monitor (Apify)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "hours", "hoursInterval": 24 }]
+        }
+      },
+      "id": "schedule-2",
+      "name": "Daily Price Check",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://apify.com",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "token", "value": "YOUR_APIFY_API_TOKEN" },
+            { "name": "maxItems", "value": "100" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"storeUrls\": [\"https://allbirds.com\"],\n  \"maxProductsPerStore\": 100\n}",
+        "options": {}
+      },
+      "id": "apify-shopify-2",
+      "name": "Extract Shopify Products & Prices (Apify)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    }
+  ],
+  "connections": {
+    "Daily Price Check": {
+      "main": [[{ "node": "Extract Shopify Products & Prices (Apify)", "type": "main", "index": 0 }]]
+    }
+  }
+}
