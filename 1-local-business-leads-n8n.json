@@ -1,0 +1,38 @@
+{
+  "name": "Local Business & Contact Lead Extractor (Apify)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "trigger-1",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://apify.com",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "token", "value": "YOUR_APIFY_API_TOKEN" },
+            { "name": "maxItems", "value": "50" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"searchTerms\": [\"roofing contractor\", \"plumber\"],\n  \"location\": \"Austin, TX\",\n  \"maxResults\": 50\n}",
+        "options": {}
+      },
+      "id": "apify-leads-1",
+      "name": "Extract Local Business Leads (Apify)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Extract Local Business Leads (Apify)", "type": "main", "index": 0 }]]
+    }
+  }
+}
