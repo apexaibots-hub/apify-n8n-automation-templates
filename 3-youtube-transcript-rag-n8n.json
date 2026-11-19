@@ -1,0 +1,37 @@
+{
+  "name": "YouTube Video Transcript & AI RAG Extractor (Apify)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "trigger-3",
+      "name": "When Executed by AI Agent",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://apify.com",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "token", "value": "YOUR_APIFY_API_TOKEN" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"videoUrls\": [\"https://youtube.com\"],\n  \"preferredLanguage\": \"en\"\n}",
+        "options": {}
+      },
+      "id": "apify-yt-3",
+      "name": "Extract YouTube Transcripts (Apify)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2
+    }
+  ],
+  "connections": {
+    "When Executed by AI Agent": {
+      "main": [[{ "node": "Extract YouTube Transcripts (Apify)", "type": "main", "index": 0 }]]
+    }
+  }
+}
