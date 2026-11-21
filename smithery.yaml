@@ -1,0 +1,12 @@
+startCommand:
+  type: http
+  configSchema:
+    type: object
+    required:
+      - apifyToken
+    properties:
+      apifyToken:
+        type: string
+        description: Your free Apify API token from https://apify.com
+  exampleConfig:
+    apifyToken: apify_api_your_token_here
